@@ -39,11 +39,14 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{route('admin.index')}}">Панель состояния</a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Блог</a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{route('admin.category.index')}}">Категории</a></li>
-                            <li><a href="#">Материалы</a></li>
+                            <li><a href="{{route('admin.article.index')}}">Новости</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -85,5 +88,11 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script src={{asset('/vendor/unisharp/laravel-ckeditor/ckeditor.js')}}></script>
+<script src={{asset('/vendor/unisharp/laravel-ckeditor/adapters/jquery.js')}}></script>
+<script>
+    $('#description_short').ckeditor();
+    $('#description').ckeditor();
+</script>
 </body>
 </html>

@@ -13,11 +13,20 @@ class Category extends Model
 
     //Mutators
     public function setSlugAttribute($value){
-        $this->attributes['slug'] = Str::slug(mb_substr($this->title, 0, 40) . "-" . \Carbon\Carbon::now()->format('dmyHi'), '-');
+        $this->attributes['slug'] = Str::slug(mb_substr($this->title, 0, 40), '-');
     }
 
     //get children category
     public function children(){
         return $this->hasMany(self::class, 'parent_id');
+    }
+
+    //Polymorphic relations with articles
+    public function articles(){
+        return $this->morphedByMany('App\Model\Article', 'categoryable');
+    }
+
+    public function scopeLastCategories($query, $count){
+        return $query->orderBy('created_at', 'desc')->take($count)->get();
     }
 }

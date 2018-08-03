@@ -23,12 +23,26 @@
             @forelse($categories as $category)
                 <tr>
                     <td>{{$category->title}}</td>
-                    <td>{{$category->published}}</td>
-                    <td><a href="{{route('admin.category.edit', ['id'=>$category->id])}}"><i class="fa fa-edit"></i></a></td>
+                    <td>
+                        @if($category->published)
+                            Опубликовано
+                        @else
+                            Неопубликовано
+                        @endif
+                    </td>
+                    <td class="text-right">
+                        <form onsubmit="if(confirm('Удалить?')){return true}else{return false}" action="{{route('admin.category.destroy', $category)}}" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            {{ csrf_field() }}
+
+                            <a class="btn btn-default btn-info" href="{{route('admin.category.edit', $category)}}"><i class="fa fa-edit"></i></a>
+                            <button type="submit" class="btn btn-default btn-danger"><i class="fa fa-trash-o"></i></button>
+                        </form>
+                    </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="text-center">Данные отсутствуют</td>
+                    <td colspan="3" class="text-center"><h3>Данные отсутствуют</h3></td>
                 </tr>
             @endforelse
             </tbody>
