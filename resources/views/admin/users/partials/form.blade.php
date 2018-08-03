@@ -1,28 +1,24 @@
-<label for="">Статус</label>
-<select class="form-control" name="published">
-    @if(isset($category_id))
-        <option value="0" @if($category->published == 0) selected="" @endif>Не опубликовано</option>
-        <option value="1" @if($category->published == 1) selected="" @endif>Опубликовано</option>
-    @else
-        <option value="0">Не опубликовано</option>
-        <option value="1">Опубликовано</option>
-    @endif
-</select>
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-<label for="">Наименование</label>
-<input type="text" class="form-control" name="title" placeholder="Заголовок категории" value="{{$category->title or ""}}" required>
+<label for="">Имя</label>
+<input type="text" class="form-control" name="name" placeholder="Имя пользователя" value="@if(old('name')){{old('name')}}@else{{$category->title or ""}}@endif" required>
 
-<label for="">Slug</label>
-<input type="text" class="form-control" name="slug" placeholder="Автоматическая генерация" value="{{$category->slug or ""}}" readonly="">
+<label for="">E-mail</label>
+<input type="email" class="form-control" name="email" placeholder="E-mail пользователя" value="@if(old('email')){{old('name')}}@else{{$category->title or ""}}@endif" required>
 
-<label for="">Родительская категория</label>
-<select class="form-control" name="parent_id">
-    <option value="0">-- Без родительской категории --</option>
-    @include('admin.categories.partials.categories', ['categories' => $categories])
-</select>
+<label for="">Пароль</label>
+<input type="password" class="form-control" name="password">
 
-<label for="">Краткое описание</label>
-<textarea name="description_short" id="description_short" class="form-control">{{$category->description_short or ""}}</textarea>
+<label for="">Подтверждение пароля</label>
+<input type="password" class="form-control" name="password_confirmation">
 
 <hr>
 

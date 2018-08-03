@@ -5,21 +5,19 @@
     <div class="container">
 
         @component('admin.components.breadcrumb')
-            @slot('title') Редактирование новости @endslot
+            @slot('title') Редактирование пользователя @endslot
             @slot('parent') Главная @endslot
-            @slot('active') Новости @endslot
+            @slot('active') Пользователи @endslot
         @endcomponent
 
         <hr>
 
-        <form class="form-horizontal" action="{{route('admin.article.update', $article)}}" method="post">
-            <input type="hidden" name="_method" value="put">
+        <form class="form-horizontal" action="{{route('admin.user_management.user.update', $user)}}" method="post">
+            {{ method_field('PUT') }}
             {{csrf_field()}}
 
             {{-- Form included --}}
-            @include('admin.articles.partials.form')
-
-            <input type="hidden" name="modified_at" value="{{Auth::id()}}">
+            @include('admin.users.partials.form')
         </form>
     </div>
 
